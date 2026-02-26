@@ -11,6 +11,7 @@ debug() {
   if ! $activate_debug; then
     return 0
   else
-    echo -e "$blue_color_12[DEBUG]$end_color $yellow_color_190$custom_message$end_color"
+    echo -e "$blue_color_12[DEBUG] $end_color$yellow_color_190$custom_message$end_color"
+    return 0
   fi
 }
