@@ -24,26 +24,27 @@ for ((i; i < num_bars; i++)); do
   progress_bar_str+='='
 done
 
-sum=$(($num_bars + $progress_bar_perc_length))
-debug $activate_debug "The sum of num_bars and progress_bar_perc_length is: $sum"
+perc_and_num_bars_length=$(($num_bars + $progress_bar_perc_length))
+debug $activate_debug "The sum of num_bars and progress_bar_perc_length is: $perc_and_num_bars_length"
 
-if [[ $sum -le $length ]]; then
+debug $activate_debug "Param num_bars length before if statement: $num_bars"
+
+if [[ $perc_and_num_bars_length -le $length ]]; then
   progress_bar_str+=$progress_bar_perc
-
-  for ((i = num_bars; i < (length - $progress_bar_perc_length); i++)); do
-    progress_bar_str+=' '
-  done
-else
-  for ((i = num_bars; i < length; i++)); do
-    progress_bar_str+=' '
-  done
+  num_bars=$(( ${#progress_bar_perc} + $num_bars ))
 fi
+
+debug $activate_debug "Param num_bars length after if statement: $num_bars"
+
+for ((i = $num_bars; i < length; i++)); do
+    progress_bar_str+=' '
+done
 
 debug $activate_debug "progress_bar_str length: ${#progress_bar_str} chars"
 
 progress_bar_str+=']'
 
-if [[ $sum -ge $length ]]; then
+if [[ $perc_and_num_bars_length -gt $length ]]; then
   progress_bar_str+=$progress_bar_perc
 fi
 
